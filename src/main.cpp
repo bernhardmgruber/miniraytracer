@@ -5,7 +5,7 @@
 #include "Image.h"
 #include "raytrace.h"
 
-using std::filesystem::path;
+using boost::filesystem::path;
 
 int main(int argc, const char* argv[]) {
 	try {

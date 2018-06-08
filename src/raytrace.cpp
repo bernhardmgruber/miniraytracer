@@ -1,9 +1,9 @@
-#define USE_MATH_DEFINES
 #include "raytrace.h"
 
+#include <boost/optional.hpp>
 #include <algorithm>
-#include <optional>
 
+#include "utils/utils.h"
 #include "Scene.h"
 #include "Image.h"
 
@@ -43,7 +43,7 @@ namespace rt {
 		return r;
 	}
 
-	auto intersect(const Ray& ray, const Sphere& sphere) -> std::optional<Intersection> {
+	auto intersect(const Ray& ray, const Sphere& sphere) -> boost::optional<Intersection> {
 		// from https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection
 
 		// solve quadratic equation
@@ -51,15 +51,12 @@ namespace rt {
 		const auto b = 2 * (ray.direction * (ray.origin - sphere.center));
 		const auto c = std::pow((ray.origin - sphere.center).length(), 2) - std::pow(sphere.radius, 2);
 
-		const auto discriminat = std::pow(b, 2) - 4 * a * c;
-		if (discriminat < 0)
-			return std::nullopt;
-
-		const auto x1 = (-b - std::sqrt(discriminat)) / 2 * a;
-		const auto x2 = (-b + std::sqrt(discriminat)) / 2 * a;
+		const auto solutions = utils::solveQuadraticEquation(a, b, c);
+		if (solutions.empty())
+			return {};
 
 		// report the closer intersection
-		const auto t = std::min(x1, x2);
+		const auto t = static_cast<float>(*std::min_element(std::begin(solutions), std::end(solutions)));
 
 		Intersection inter;
 		inter.distance = t;
@@ -108,7 +105,7 @@ namespace rt {
 		}
 
 		for (int i = 0; i < 3; i++)
-			r[i] = std::clamp<unsigned char>(r[i], 0, 255);
+			r[i] = utils::clamp<unsigned char>(r[i], 0, 255);
 
 		return r;
 	}
@@ -127,7 +124,7 @@ namespace rt {
 						hits.push_back(*hit);
 
 				//img(x, y) = colorByRay(ray);
-				img(x, y) = colorByNearestIntersectionNormal(hits);
+				//img(x, y) = colorByNearestIntersectionNormal(hits);
 				img(x, y) = colorByIntersectionNormal(hits);
 			}
 		}

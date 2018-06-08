@@ -1,7 +1,7 @@
 #pragma once
 
+#include <boost/filesystem.hpp>
 #include <vector>
-#include <filesystem>
 
 #include "Vector.hpp"
 
@@ -20,7 +20,7 @@ namespace rt {
 
 	class Scene {
 	public:
-		Scene(const std::filesystem::path& file);
+		Scene(const boost::filesystem::path& file);
 
 		auto camera() const -> const Camera&;
 		auto spheres() const -> const std::vector<Sphere>&;

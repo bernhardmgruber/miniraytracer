@@ -1,12 +1,8 @@
-# have a look at https://github.com/lefticus/cpp_starter_project
-
-project(imagewrite)
+project(utils)
 
 file(GLOB source_files *.cpp *.h *.hpp)
-add_library(${PROJECT_NAME} SHARED ${source_files})
+add_library(${PROJECT_NAME} STATIC ${source_files})
 source_group("" FILES ${source_files})
-
-target_compile_definitions(${PROJECT_NAME} PRIVATE BUILD_SHARED_LIBRARY)
 
 if(MSVC)
 	target_compile_options(${PROJECT_NAME} PRIVATE /W4)

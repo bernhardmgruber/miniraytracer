@@ -1,17 +1,16 @@
-# have a look at https://github.com/lefticus/cpp_starter_project
-
 project(miniraytracer)
 
 add_subdirectory(imagewrite)
+add_subdirectory(utils)
 
 file(GLOB source_files *.cpp *.h *.hpp)
 add_executable(${PROJECT_NAME} ${source_files})
 source_group("" FILES ${source_files})
 
-target_link_libraries(${PROJECT_NAME} imagewrite)
+target_link_libraries(${PROJECT_NAME} imagewrite utils)
 
 if(MSVC)
-	target_compile_options(${PROJECT_NAME} PRIVATE /W4 /std:c++17)
+	target_compile_options(${PROJECT_NAME} PRIVATE /W4)
 else()
 	target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra)
 endif()

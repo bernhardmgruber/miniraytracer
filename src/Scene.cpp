@@ -4,10 +4,10 @@
 #include <sstream>
 
 namespace rt {
-	Scene::Scene(const std::filesystem::path& filepath) {
+	Scene::Scene(const boost::filesystem::path& filepath) {
 		// read the scene file
 
-		std::ifstream f(filepath);
+		std::ifstream f(filepath.string());
 		if (!f)
 			throw std::ios::failure("Failed to open file " + filepath.string() + " for reading");
 		

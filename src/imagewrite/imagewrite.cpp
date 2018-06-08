@@ -1,10 +1,12 @@
+#include "imagewrite.h"
+
+#include <boost/filesystem.hpp>
 #include <fstream>
 #include <string>
 #include <cstdint>
 #include <algorithm>
 
-#include <filesystem>
-
+#define STBI_MSC_SECURE_CRT
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 
@@ -12,7 +14,7 @@ namespace {
 	// cf. https://en.wikipedia.org/wiki/Truevision_TGA
 	// we need to pack the following structs to disallow the C++ compiler to add extra space
 	// between the struct members or at the end of the struct (padding, alignment)
-#pragma pack(1)
+#pragma pack(push, 1)
 	struct TGAHeader {
 		uint8_t id = 0;
 		uint8_t colorMapType = 0;
@@ -63,8 +65,8 @@ namespace {
 
 		TGAHeader header;
 		TGAFooter footer;
-		header.width = width;
-		header.height = height;
+		header.width = static_cast<uint16_t>(width);
+		header.height = static_cast<uint16_t>(height);
 		f.write(reinterpret_cast<const char*>(&header), sizeof(TGAHeader));
 		f.write(reinterpret_cast<const char*>(data.data()), data.size() * sizeof(unsigned char));
 		f.write(reinterpret_cast<const char*>(&footer), sizeof(TGAFooter));
@@ -72,9 +74,9 @@ namespace {
 }
 
 extern "C" {
-	int writeImage(const char* filename, unsigned int width, unsigned int height, const unsigned char* pixels) {
+	IMAGEWRITE_API int writeImage(const char* filename, unsigned int width, unsigned int height, const unsigned char* pixels) {
 		try {
-			std::filesystem::path filepath(filename);
+			boost::filesystem::path filepath(filename);
 
 			if (filepath.extension() == ".tga")
 				writeImageTGA(filename, width, height, pixels);

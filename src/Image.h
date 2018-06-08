@@ -1,6 +1,6 @@
 #pragma once
 
-#include <filesystem>
+#include <boost/filesystem.hpp>
 #include <vector>
 
 #include "Vector.hpp"
@@ -15,7 +15,7 @@ namespace rt {
 		auto operator()(unsigned int x, unsigned int y) -> Pixel&;
 		auto operator()(unsigned int x, unsigned int y) const -> const Pixel&;
 
-		void write(const std::filesystem::path& filename) const;
+		void write(const boost::filesystem::path& filename) const;
 
 	private:
 		unsigned int width;

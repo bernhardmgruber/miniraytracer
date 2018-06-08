@@ -16,7 +16,7 @@ namespace rt {
 		return pixels[y * width + x];
 	}
 
-	void Image::write(const std::filesystem::path& filename) const {
+	void Image::write(const boost::filesystem::path& filename) const {
 		if (!writeImage(filename.string().c_str(), width, height, reinterpret_cast<const unsigned char*>(pixels.data())))
 			throw std::runtime_error("Failed to write image " + filename.string());
 	}

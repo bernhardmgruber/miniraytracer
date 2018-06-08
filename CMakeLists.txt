@@ -1,3 +1,5 @@
+# have a look at https://github.com/lefticus/cpp_starter_project
+
 cmake_minimum_required(VERSION 3.0)
 
 # find external libraries
