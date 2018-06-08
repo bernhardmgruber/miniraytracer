@@ -2,6 +2,8 @@
 
 #include <fstream>
 
+#include "imagewrite/imagewrite.h"
+
 namespace rt {
 	Image::Image(unsigned int width, unsigned int height)
 		: width(width), height(height), pixels(width * height) {}
@@ -15,12 +17,7 @@ namespace rt {
 	}
 
 	void Image::write(const std::filesystem::path& filename) const {
-		std::ofstream f(filename, std::ios::binary);
-		if (!f)
-			throw std::ios::failure("Failed to open file " + filename.string() + " for writing");
-		f << "P6\n";
-		f << width << " " << height << '\n';
-		f << "255\n";
-		f.write(reinterpret_cast<const char*>(pixels.data()), pixels.size() * sizeof(decltype(pixels)::value_type));
+		if (!writeImage(filename.string().c_str(), width, height, reinterpret_cast<const unsigned char*>(pixels.data())))
+			throw std::runtime_error("Failed to write image " + filename.string());
 	}
 }

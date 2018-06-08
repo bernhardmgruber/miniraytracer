@@ -9,20 +9,21 @@ using std::filesystem::path;
 
 int main(int argc, const char* argv[]) {
 	try {
-		if (argc != 4) {
+		if (argc != 5) {
 			std::cerr << "Invalid number of arguments. Usage:\n\n";
-			std::cerr << argv[0] << " sceneFile width height\n";
+			std::cerr << argv[0] << " sceneFile imageFormat width height\n";
 			return 1;
 		}
 
 		const path sceneFile = argv[1];
-		const unsigned int width = std::stoi(argv[2]);
-		const unsigned int height = std::stoi(argv[3]);
+		const path imageFormat = argv[2];
+		const unsigned int width = std::stoi(argv[3]);
+		const unsigned int height = std::stoi(argv[4]);
 
 		if (!sceneFile.has_stem())
 			throw std::invalid_argument("Except scene file " + sceneFile.string() + " to have a stem");
 		path imageFile = sceneFile;
-		imageFile.replace_extension("ppm");
+		imageFile.replace_extension(imageFormat);
 
 		rt::Scene scene(sceneFile);
 
@@ -33,7 +34,7 @@ int main(int argc, const char* argv[]) {
 
 		image.write(imageFile);
 
-		std::getchar();
+		//std::getchar();
 	}
 	catch (const std::exception& e) {
 		std::cerr << "Exception: " << e.what() << '\n';
