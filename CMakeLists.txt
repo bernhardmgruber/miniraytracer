@@ -3,6 +3,9 @@
 cmake_minimum_required(VERSION 3.0)
 
 # find external libraries
+if(WIN32)
+	set(Boost_USE_STATIC_LIBS ON)
+endif()
 find_package(Boost REQUIRED COMPONENTS system filesystem)
 add_definitions(${Boost_DEFINITIONS})
 include_directories(${Boost_INCLUDE_DIRS})

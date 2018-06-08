@@ -18,5 +18,3 @@ if(MSVC)
 else()
 	target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra)
 endif()
-
-#target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
