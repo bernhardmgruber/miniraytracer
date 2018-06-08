@@ -12,13 +12,13 @@ namespace rt {
 
 	struct Intersection {
 		float distance;
-		math::VectorF point;
-		math::VectorF normal;
+		VectorF point;
+		VectorF normal;
 	};
 
 	struct Ray {
-		math::VectorF origin;
-		math::VectorF direction;
+		VectorF origin;
+		VectorF direction;
 	};
 
 	auto createRay(const Camera& camera, unsigned int width, unsigned int height, unsigned int x, unsigned int y) -> Ray {

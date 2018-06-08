@@ -8,13 +8,13 @@
 namespace rt {
 	struct Camera {
 		float fovy; // in degree
-		math::VectorF position;
-		math::VectorF view;
-		math::VectorF up;
+		VectorF position;
+		VectorF view;
+		VectorF up;
 	};
 
 	struct Sphere {
-		math::VectorF center;
+		VectorF center;
 		float radius;
 	};
 

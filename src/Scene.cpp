@@ -41,11 +41,11 @@ namespace rt {
 				expect("position");
 				ss >> _camera.position;
 				expect("lookAt");
-				math::VectorF la;
+				VectorF la;
 				ss >> la;
 				_camera.view = (la - _camera.position).normalized();
 				expect("up");
-				math::VectorF up;
+				VectorF up;
 				ss >> up;
 				_camera.up = (_camera.view % (_camera.view % up)).normalized();
 			} else

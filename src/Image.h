@@ -8,7 +8,7 @@
 namespace rt {
 	class Image {
 	public:
-		using Pixel = math::Vector<unsigned char>;
+		using Pixel = Vector<unsigned char>;
 
 		Image(unsigned int width, unsigned int height);
 

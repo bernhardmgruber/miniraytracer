@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <iosfwd>
 
-namespace math {
+namespace rt {
 	template <typename F>
 	class Vector {
 	public:
