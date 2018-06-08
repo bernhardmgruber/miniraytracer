@@ -6,7 +6,9 @@
 #include <cstdint>
 #include <algorithm>
 
-#define STBI_MSC_SECURE_CRT
+#ifdef _WIN32
+#  define STBI_MSC_SECURE_CRT
+#endif
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 
@@ -36,7 +38,7 @@ namespace {
 	struct TGAFooter {
 		uint32_t extensionOffset = 0;
 		uint32_t developerAreaOffset = 0;
-		uint8_t signature[18] = "TRUEVISION-XFILE.";
+		char signature[18] = "TRUEVISION-XFILE.";
 	};
 	static_assert(sizeof(TGAFooter) == 26, "");
 #pragma pack(pop)

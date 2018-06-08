@@ -7,7 +7,11 @@ file(GLOB source_files *.cpp *.h *.hpp)
 add_executable(${PROJECT_NAME} ${source_files})
 source_group("" FILES ${source_files})
 
-target_link_libraries(${PROJECT_NAME} imagewrite utils)
+target_link_libraries(${PROJECT_NAME}
+	imagewrite
+	utils
+	${Boost_LIBRARIES}
+)
 
 if(MSVC)
 	target_compile_options(${PROJECT_NAME} PRIVATE /W4)
