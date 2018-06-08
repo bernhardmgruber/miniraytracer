@@ -9,12 +9,16 @@ using std::filesystem::path;
 
 int main(int argc, const char* argv[]) {
 	try {
-		if (argc != 2) {
-			std::cerr << "Invalid number of arguments. Expecting a scene file!\n";
+		if (argc != 4) {
+			std::cerr << "Invalid number of arguments. Usage:\n\n";
+			std::cerr << argv[0] << " sceneFile width height\n";
 			return 1;
 		}
 
 		const path sceneFile = argv[1];
+		const unsigned int width = std::stoi(argv[2]);
+		const unsigned int height = std::stoi(argv[3]);
+
 		if (!sceneFile.has_stem())
 			throw std::invalid_argument("Except scene file " + sceneFile.string() + " to have a stem");
 		path imageFile = sceneFile;
@@ -23,7 +27,7 @@ int main(int argc, const char* argv[]) {
 		rt::Scene scene(sceneFile);
 
 		const auto start = std::chrono::high_resolution_clock::now();
-		const auto image = rt::raytrace(scene, 1024, 768);
+		const auto image = rt::raytrace(scene, width, height);
 		const auto end = std::chrono::high_resolution_clock::now();
 		std::cout << "Raycast took " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "ms\n";
 
