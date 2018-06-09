@@ -1,7 +1,5 @@
 #include "Image.h"
 
-#include <fstream>
-
 #include "imagewrite/imagewrite.h"
 
 namespace rt {
